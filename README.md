@@ -16,20 +16,25 @@ Evaluation Suite: Comprehensive metrics including Confusion Matrix, ROC-AUC curv
 
 Repo Map
 
-config.py: Central configuration file storing dataset paths, image dimensions (224×224), normalization stats (ImageNet means/stds), and default hyperparameters.
+Data_Cleaning_and_Preprocessing.ipynb
 
-data_loader.py: Handles dataset ingestion using torchvision.datasets.ImageFolder. Defines the transformation pipeline (Resize, ToTensor, Normalize) and creates Train/Val/Test DataLoaders.
+Purpose: The entry point for the pipeline.
 
-model_resnet.py: Defines the DeepfakeResNet class. Loads the pre-trained ResNet-18, freezes early layers (optional), and replaces the final fully connected layer with a binary classification head.
+Function: Downloads the raw dataset from Kaggle (manjilkarki/deepfake-and-real-images), scans for image integrity, and performs a stratified 70/15/15 split.
 
-train.py: The main training engine. Runs the training loop, computes CrossEntropyLoss, performs backpropagation, and saves model checkpoints (best_model.pth) based on validation accuracy.
+Output: Generates a structured cleaned_dataset/ directory organized into Train, Validation, and Test folders, ready for PyTorch ImageFolder ingestion.
 
-tune_hyperparameters.py: An Optuna-driven script that runs multiple trials to automatically find the optimal learning rate, batch size, and weight decay. It minimizes the validation loss.
+FAKE_FACE_DETECTION.ipynb
 
-evaluate.py: Loads the best saved model and runs it against the Test set. Generates the Confusion Matrix, prints the Classification Report (Precision/Recall/F1), and calculates Test Accuracy.
+Purpose: The core training and evaluation notebook.
 
-visualize_metrics.py: Contains helper functions to plot training history (Loss/Accuracy curves over epochs) and generate the ROC (Receiver Operating Characteristic) Curve.
+Function: Loads the processed data, initializes a pre-trained ResNet-18 model, and fine-tunes the final layer for binary classification.
 
-train_hybrid_xgboost.py: A specialized script that strips the classification layer from the trained ResNet, uses the model as a Feature Extractor (outputting 512-dim vectors), and trains an XGBoost classifier on these features for improved performance.
+Visualization: Generates training history plots (Loss/Accuracy), Confusion Matrices, and ROC-AUC curves to validate model performance.
 
-predict.py: Inference script. Takes a single image path as input, applies transformations, and outputs the probability of the face being "Fake" or "Real."
+hyperparameters_deepfake_detection.ipynb
+
+Purpose: Advanced post-processing and hybrid modeling.
+
+Function: Strips the classification head from the trained ResNet model to use it purely as a Feature Extractor. It passes the 512-dimensional feature vectors into an XGBoost Classifier to improve decision boundaries beyond standard Softmax layers.
+

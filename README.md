@@ -1,7 +1,9 @@
 # imse583-term-project
 
 Project Name: IMSE 583: Deepfake Detection System
+
 Members: Aniket Khedkar, Bhavika Solao, Tega, Reshma
+
 Description: This repository contains the term project for IMSE 583, focusing on the detection of AI-generated fake faces. The system leverages Transfer Learning using a pre-trained ResNet-18 architecture to classify images as "Real" or "Fake." The pipeline includes robust data preprocessing, hyperparameter optimization using Optuna, and a hybrid classification approach utilizing XGBoost on extracted deep features.
 
 Key Features:

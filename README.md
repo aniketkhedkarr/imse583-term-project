@@ -1,4 +1,4 @@
-# imse583-term-project
+# cis583-term-project
 
 Project Name: IMSE 583: Deepfake Detection System
 
